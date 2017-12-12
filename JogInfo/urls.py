@@ -3,5 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url('', views.run_list, name='index'),
+    url('all', views.jog_list, name='index'),
+    url(r'^(?P<pk>[0-9]+)', views.datapoints_list),
+    url('put', views.new_jog)
 ]

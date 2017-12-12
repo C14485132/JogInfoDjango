@@ -1,14 +1,16 @@
 from rest_framework import serializers
-from .models import Run, KeyVal
+from .models import Jog, Datapoint
 
 
-class RunSerializer(serializers.ModelSerializer):
+class JogSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Run
+        model = Jog
         fields = ('start', 'end')
 
 
-class KeyValSerializer(serializers.ModelSerializer):
+class DatapointSerializer(serializers.ModelSerializer):
+    jog = JogSerializer(read_only=True)
+
     class Meta:
-        model = KeyVal
-        fields = ('container', 'coordTime', 'coords')
+        model = Datapoint
+        fields = ('jog', 'coordTime', 'coords')
