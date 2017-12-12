@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from .models import Jog, Datapoint
 from .serializers import JogSerializer, DatapointSerializer
@@ -49,12 +48,11 @@ def datapoints_list(request, pk):
 
 @csrf_exempt
 def new_jog(request):
-    if request.method == 'PUT':
-        data = JSONParser().parse(request)
-        print(data)
+    if request.method == 'POST':
+        print(request.POST.get("startTime", None))
 
-        serializer = DatapointSerializer(datapoints, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+        # serializer = DatapointSerializer(datapoints, data=data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return JsonResponse(serializer.data)
+        return HttpResponse(status=200)
